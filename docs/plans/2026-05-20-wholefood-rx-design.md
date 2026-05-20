@@ -1,0 +1,201 @@
+# WholeFood RX — Design Spec
+
+**Date:** 2026-05-20
+**Status:** Draft for review
+**Owner:** elinw
+
+---
+
+## 1. Goal
+
+A science-forward web app that **inverts the usual nutrition lookup**: user picks a micronutrient and gets the highest-density whole-food sources, ranked per 100 g and per typical serving. Anti-supplement, USDA/NIH-cited, no marketing language.
+
+## 2. Non-goals (MVP)
+
+- User accounts, sign-in, cloud sync — deferred. Plate builder persists to `localStorage`.
+- Meal planning, recipes, grocery lists.
+- Branded food data (only whole foods).
+- Mobile native app — responsive web only.
+- Tracking historical intake — the plate builder is a single-day snapshot.
+
+## 3. Stack
+
+| Layer | Choice | Notes |
+|---|---|---|
+| Framework | Next.js 14 (App Router) + TypeScript | Server Components by default |
+| Styling | Tailwind + shadcn/ui | Per spec |
+| DB | Neon serverless Postgres | Single `DATABASE_URL`, same pattern as acris-scraper |
+| ORM | Drizzle + drizzle-kit | TS-native schema, edge-compatible |
+| Charts | Recharts | What shadcn's chart wrappers use |
+| Seed runtime | `tsx` scripts in `/scripts` | Run with `pnpm db:seed` |
+| Deploy | Vercel | Local-first, deploy after Feature #1 |
+
+No auth provider in MVP. If needed later, default candidate is Clerk; second choice Auth.js v5 if we want sessions in Neon.
+
+## 4. Data model
+
+Builds on the spec's three tables, adds three more for Features #3 and #5, and adds provenance columns.
+
+```sql
+-- ENUMS
+nutrient_category: vitamin_fat_soluble | vitamin_water_soluble | macro_mineral
+                 | trace_mineral | essential_amino_acid | conditionally_essential_aa
+                 | essential_fatty_acid | adaptogen | phytonutrient
+
+food_category: fruit | vegetable | leafy_green | nut | seed | legume
+             | whole_grain | herb_adaptogen | mushroom | animal_protein
+             | seafood | dairy
+
+data_source: usda_foundation | usda_sr_legacy | curated
+
+interaction_kind: synergy | antagonist | cofactor
+
+-- CORE
+nutrients (
+  id            serial pk,
+  name          text unique not null,
+  category      nutrient_category not null,
+  rda_male      numeric,
+  rda_female    numeric,
+  unit          text not null,                 -- mg, mcg, g, IU
+  function_summary    text,
+  deficiency_symptoms text,
+  toxicity_threshold  numeric,
+  cofactors           text[],                  -- free-text nutrient names
+  absorption_notes    text
+)
+
+foods (
+  id                 serial pk,
+  name               text not null,
+  category           food_category not null,
+  fdc_id             integer unique,           -- null for curated-only foods
+  serving_size_g     numeric not null,
+  serving_description text not null,           -- "1 cup, raw"
+  organic_available  boolean default true,
+  seasonality        text,                     -- "year-round" or "Aug-Oct"
+  glycemic_index     integer,
+  notes              text
+)
+
+food_nutrients (
+  food_id            integer not null references foods(id),
+  nutrient_id        integer not null references nutrients(id),
+  amount_per_100g    numeric not null,
+  amount_per_serving numeric not null,         -- derived but materialized for ranking speed
+  bioavailability_score numeric,               -- 0..1, nullable
+  preparation_notes  text,
+  data_source        data_source not null,
+  citation_url       text,                     -- required when data_source = curated
+  last_verified_at   timestamptz default now(),
+  primary key (food_id, nutrient_id, data_source)
+)
+
+-- NEW: symptom chain (Feature #3)
+symptoms (
+  id          serial pk,
+  name        text unique not null,
+  description text
+)
+
+symptom_nutrients (
+  symptom_id  integer not null references symptoms(id),
+  nutrient_id integer not null references nutrients(id),
+  strength    smallint not null,               -- 1..5 evidence weight
+  notes       text,
+  primary key (symptom_id, nutrient_id)
+)
+
+-- NEW: synergy notes (Feature #5)
+nutrient_interactions (
+  id              serial pk,
+  nutrient_a_id   integer not null references nutrients(id),
+  nutrient_b_id   integer not null references nutrients(id),
+  kind            interaction_kind not null,
+  notes           text not null,
+  citation_url    text,
+  check (nutrient_a_id <> nutrient_b_id)
+)
+```
+
+**Indexes for the hot path:**
+```sql
+create index food_nutrients_nutrient_density
+  on food_nutrients (nutrient_id, amount_per_100g desc);
+create index food_nutrients_nutrient_serving
+  on food_nutrients (nutrient_id, amount_per_serving desc);
+```
+
+**Ranking when multiple `data_source` rows exist for the same (food, nutrient):** queries pick one row per (food_id, nutrient_id) using a deterministic precedence — `usda_foundation` > `usda_sr_legacy` > `curated`. Implemented as a `DISTINCT ON (food_id, nutrient_id) ... ORDER BY food_id, nutrient_id, data_source` subquery inside the ranking SELECT, so the user never sees double-counted foods.
+
+## 5. Seeding pipeline
+
+Three independent seed scripts, idempotent, run in order:
+
+1. **`scripts/seed-nutrients.ts`** — hand-curated nutrient catalog from a `data/nutrients.json` file (all 13 vitamins, 16 minerals, 9 EAAs + 6 CE-AAs, 4 fatty acids, 8 adaptogens, 6 phytonutrients). RDAs from NIH ODS Fact Sheets.
+
+2. **`scripts/seed-foods-usda.ts`** — Pulls from USDA FDC API (`/v1/food/{fdcId}`) using a curated list of ~300 FDC IDs in `data/usda-food-ids.json`. Foundation Foods (lab-verified) prioritized; SR Legacy fillers for foods not in Foundation. Maps USDA nutrient IDs to our `nutrients.id`, writes `food_nutrients` rows with `data_source = 'usda_foundation'` or `'usda_sr_legacy'`. Uses `USDA_API_KEY` env var.
+
+3. **`scripts/seed-curated.ts`** — Reads `data/curated-foods.json` and `data/curated-food-nutrients.json` (adaptogens + phytonutrients with peer-reviewed citations). Writes rows with `data_source = 'curated'` and `citation_url` populated.
+
+4. **`scripts/seed-symptoms.ts`** — Reads `data/symptoms.json` and `data/symptom-nutrients.json`.
+
+5. **`scripts/seed-interactions.ts`** — Reads `data/nutrient-interactions.json` (iron+vitC synergy, calcium↔iron antagonist, phytates↔zinc, fat-soluble+fat, etc.).
+
+A single `scripts/seed.ts` orchestrates all five.
+
+## 6. Features → routes
+
+| # | Feature | Route | Notes |
+|---|---|---|---|
+| 1 | Nutrient → Food (MVP) | `/nutrient/[slug]` | Top 25 foods, toggle per-100g/per-serving, category filter, %RDA badge |
+| 2 | Food → Nutrient | `/food/[slug]` | Radar chart of vitamins, bar chart of minerals, full table beneath |
+| 3 | Symptom chain | `/symptoms` | Multi-select symptoms → ranked nutrients → top foods |
+| 4 | Plate builder | `/plate` | Client component, localStorage, cumulative %RDA grid, gap highlights |
+| 5 | Synergy notes | inline cards on `/nutrient/[slug]` and `/food/[slug]` | Pulled from `nutrient_interactions` |
+
+Citations are surfaced everywhere a numeric value is shown — small "USDA FDC #12345" or "NIH ODS" link next to each row.
+
+## 7. UI principles (from spec)
+
+- Clean, minimal, science-forward (Examine.com × Cronometer)
+- No supplement-industry hype
+- Cite USDA/NIH ODS for every data point
+- Default font: shadcn defaults (Geist). Mono for nutrient values.
+
+## 8. Build order
+
+1. `pnpm create next-app@latest wholefood-rx --typescript --tailwind --app`
+2. Install shadcn, Drizzle, `@neondatabase/serverless`, `tsx`, Recharts
+3. Initialize Neon project, set `DATABASE_URL`
+4. Write Drizzle schema → first migration
+5. Build `data/*.json` curated files (nutrients, FDC IDs, curated foods, symptoms, interactions)
+6. Write & run seed scripts
+7. Build Feature #1 page (`/nutrient/[slug]`) — the MVP slice
+8. Verify locally end-to-end
+9. Then Features #2, #3, #4, #5 in order
+10. Deploy to Vercel
+
+## 9. Open decisions captured
+
+- **Bioavailability_score:** populated only for the curated rows where we have data; nullable elsewhere. UI shows it as an asterisk tooltip, not a default sort key.
+- **RDA gender split:** the spec has `rda_male` / `rda_female`. MVP UI defaults to a single toggle in the page header; no per-user storage.
+- **Preparation_notes:** stored on `food_nutrients` rather than `foods` because the same food can have multiple rows (e.g., broccoli raw vs steamed = two `food_nutrients` rows joined by different `data_source`). MVP only seeds one row per (food, nutrient); cooked-vs-raw is a v2 extension.
+
+## 10. Out of scope (explicit)
+
+- Cooked-vs-raw multi-state foods (`preparation_notes` column exists but seeds one state only)
+- Multi-language support
+- Per-user RDA customization (age, pregnancy, etc.) — uses generic adult M/F
+- Drug-nutrient interactions
+- Allergen filtering
+- Any cost / sourcing data
+
+## 11. Deliverables
+
+- Working app at `localhost:3000` covering all five features
+- Drizzle schema + migrations checked in
+- Seed scripts + `data/*.json` source files checked in
+- README: setup, env vars, `pnpm db:seed`, USDA refresh
+- `.env.example` with `DATABASE_URL`, `USDA_API_KEY`
+- Vercel deploy URL (after MVP slice verified locally)
