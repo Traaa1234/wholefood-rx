@@ -204,3 +204,95 @@ export async function getFoodNutrientProfile(foodId: number): Promise<FoodNutrie
   `);
   return result.rows as FoodNutrientRow[];
 }
+
+export type SymptomRow = {
+  slug: string;
+  name: string;
+  description: string | null;
+};
+
+export async function listSymptoms(): Promise<SymptomRow[]> {
+  const result = await db.execute(sql`
+    select slug, name, description
+    from symptoms
+    order by name
+  `);
+  return result.rows as SymptomRow[];
+}
+
+export type SymptomNutrientRow = {
+  nutrient_slug: string;
+  nutrient_name: string;
+  nutrient_category: string;
+  unit: string;
+  total_strength: number;
+  symptom_count: number;
+};
+
+export async function getNutrientsForSymptoms(symptomSlugs: string[]): Promise<SymptomNutrientRow[]> {
+  if (symptomSlugs.length === 0) return [];
+  const slugList = sql.join(symptomSlugs.map((s) => sql`${s}`), sql`, `);
+  const result = await db.execute(sql`
+    select
+      n.slug as nutrient_slug,
+      n.name as nutrient_name,
+      n.category::text as nutrient_category,
+      n.unit,
+      sum(sn.strength)::int as total_strength,
+      count(distinct sn.symptom_id)::int as symptom_count
+    from symptom_nutrients sn
+    join symptoms s on s.id = sn.symptom_id
+    join nutrients n on n.id = sn.nutrient_id
+    where s.slug in (${slugList})
+    group by n.id, n.slug, n.name, n.category, n.unit
+    order by total_strength desc, symptom_count desc, n.name
+  `);
+  return result.rows as SymptomNutrientRow[];
+}
+
+export type InteractionRow = {
+  kind: string;
+  notes: string;
+  citation_url: string | null;
+  a_slug: string;
+  a_name: string;
+  b_slug: string;
+  b_name: string;
+};
+
+export async function getInteractionsForNutrient(nutrientSlug: string): Promise<InteractionRow[]> {
+  const result = await db.execute(sql`
+    select
+      ix.kind::text as kind,
+      ix.notes,
+      ix.citation_url,
+      na.slug as a_slug, na.name as a_name,
+      nb.slug as b_slug, nb.name as b_name
+    from nutrient_interactions ix
+    join nutrients na on na.id = ix.nutrient_a_id
+    join nutrients nb on nb.id = ix.nutrient_b_id
+    join nutrients target on target.slug = ${nutrientSlug}
+    where ix.nutrient_a_id = target.id or ix.nutrient_b_id = target.id
+    order by ix.kind, na.name
+  `);
+  return result.rows as InteractionRow[];
+}
+
+export async function getInteractionsAmongNutrientSlugs(nutrientSlugs: string[]): Promise<InteractionRow[]> {
+  if (nutrientSlugs.length < 2) return [];
+  const slugList = sql.join(nutrientSlugs.map((s) => sql`${s}`), sql`, `);
+  const result = await db.execute(sql`
+    select
+      ix.kind::text as kind,
+      ix.notes,
+      ix.citation_url,
+      na.slug as a_slug, na.name as a_name,
+      nb.slug as b_slug, nb.name as b_name
+    from nutrient_interactions ix
+    join nutrients na on na.id = ix.nutrient_a_id
+    join nutrients nb on nb.id = ix.nutrient_b_id
+    where na.slug in (${slugList}) and nb.slug in (${slugList})
+    order by ix.kind, na.name
+  `);
+  return result.rows as InteractionRow[];
+}
