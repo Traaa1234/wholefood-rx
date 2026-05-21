@@ -1,0 +1,67 @@
+[
+  { "symptom_slug": "fatigue", "nutrient_slug": "iron", "strength": 5 },
+  { "symptom_slug": "fatigue", "nutrient_slug": "vitamin-b12", "strength": 5 },
+  { "symptom_slug": "fatigue", "nutrient_slug": "vitamin-d", "strength": 4 },
+  { "symptom_slug": "fatigue", "nutrient_slug": "magnesium", "strength": 3 },
+  { "symptom_slug": "fatigue", "nutrient_slug": "vitamin-c", "strength": 3 },
+  { "symptom_slug": "fatigue", "nutrient_slug": "rhodiola", "strength": 4 },
+  { "symptom_slug": "fatigue", "nutrient_slug": "cordyceps", "strength": 3 },
+
+  { "symptom_slug": "poor-sleep", "nutrient_slug": "magnesium", "strength": 4 },
+  { "symptom_slug": "poor-sleep", "nutrient_slug": "vitamin-d", "strength": 3 },
+  { "symptom_slug": "poor-sleep", "nutrient_slug": "ashwagandha", "strength": 4 },
+  { "symptom_slug": "poor-sleep", "nutrient_slug": "reishi", "strength": 3 },
+  { "symptom_slug": "poor-sleep", "nutrient_slug": "glycine", "strength": 3 },
+
+  { "symptom_slug": "muscle-cramps", "nutrient_slug": "magnesium", "strength": 4 },
+  { "symptom_slug": "muscle-cramps", "nutrient_slug": "potassium", "strength": 4 },
+  { "symptom_slug": "muscle-cramps", "nutrient_slug": "calcium", "strength": 3 },
+  { "symptom_slug": "muscle-cramps", "nutrient_slug": "sodium", "strength": 3 },
+
+  { "symptom_slug": "brittle-nails", "nutrient_slug": "vitamin-b7", "strength": 4 },
+  { "symptom_slug": "brittle-nails", "nutrient_slug": "iron", "strength": 3 },
+  { "symptom_slug": "brittle-nails", "nutrient_slug": "zinc", "strength": 3 },
+
+  { "symptom_slug": "hair-loss", "nutrient_slug": "iron", "strength": 4 },
+  { "symptom_slug": "hair-loss", "nutrient_slug": "zinc", "strength": 4 },
+  { "symptom_slug": "hair-loss", "nutrient_slug": "vitamin-d", "strength": 3 },
+  { "symptom_slug": "hair-loss", "nutrient_slug": "vitamin-b7", "strength": 2 },
+
+  { "symptom_slug": "low-mood", "nutrient_slug": "vitamin-d", "strength": 4 },
+  { "symptom_slug": "low-mood", "nutrient_slug": "omega-3-epa", "strength": 4 },
+  { "symptom_slug": "low-mood", "nutrient_slug": "vitamin-b12", "strength": 3 },
+  { "symptom_slug": "low-mood", "nutrient_slug": "vitamin-b9", "strength": 3 },
+  { "symptom_slug": "low-mood", "nutrient_slug": "rhodiola", "strength": 3 },
+
+  { "symptom_slug": "anxiety", "nutrient_slug": "magnesium", "strength": 3 },
+  { "symptom_slug": "anxiety", "nutrient_slug": "ashwagandha", "strength": 4 },
+  { "symptom_slug": "anxiety", "nutrient_slug": "holy-basil", "strength": 3 },
+  { "symptom_slug": "anxiety", "nutrient_slug": "omega-3-epa", "strength": 3 },
+
+  { "symptom_slug": "frequent-illness", "nutrient_slug": "vitamin-c", "strength": 4 },
+  { "symptom_slug": "frequent-illness", "nutrient_slug": "vitamin-d", "strength": 4 },
+  { "symptom_slug": "frequent-illness", "nutrient_slug": "zinc", "strength": 4 },
+  { "symptom_slug": "frequent-illness", "nutrient_slug": "selenium", "strength": 3 },
+  { "symptom_slug": "frequent-illness", "nutrient_slug": "reishi", "strength": 3 },
+
+  { "symptom_slug": "slow-wound-healing", "nutrient_slug": "vitamin-c", "strength": 4 },
+  { "symptom_slug": "slow-wound-healing", "nutrient_slug": "zinc", "strength": 4 },
+  { "symptom_slug": "slow-wound-healing", "nutrient_slug": "vitamin-a", "strength": 3 },
+  { "symptom_slug": "slow-wound-healing", "nutrient_slug": "lysine", "strength": 3 },
+  { "symptom_slug": "slow-wound-healing", "nutrient_slug": "proline", "strength": 2 },
+
+  { "symptom_slug": "cold-intolerance", "nutrient_slug": "iron", "strength": 4 },
+  { "symptom_slug": "cold-intolerance", "nutrient_slug": "iodine", "strength": 4 },
+  { "symptom_slug": "cold-intolerance", "nutrient_slug": "selenium", "strength": 3 },
+
+  { "symptom_slug": "brain-fog", "nutrient_slug": "vitamin-b12", "strength": 4 },
+  { "symptom_slug": "brain-fog", "nutrient_slug": "iron", "strength": 3 },
+  { "symptom_slug": "brain-fog", "nutrient_slug": "omega-3-dha", "strength": 4 },
+  { "symptom_slug": "brain-fog", "nutrient_slug": "vitamin-d", "strength": 3 },
+
+  { "symptom_slug": "weak-bones", "nutrient_slug": "calcium", "strength": 5 },
+  { "symptom_slug": "weak-bones", "nutrient_slug": "vitamin-d", "strength": 5 },
+  { "symptom_slug": "weak-bones", "nutrient_slug": "vitamin-k", "strength": 4 },
+  { "symptom_slug": "weak-bones", "nutrient_slug": "magnesium", "strength": 3 },
+  { "symptom_slug": "weak-bones", "nutrient_slug": "phosphorus", "strength": 3 }
+]

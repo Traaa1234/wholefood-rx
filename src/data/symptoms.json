@@ -1,0 +1,14 @@
+[
+  { "slug": "fatigue", "name": "Fatigue", "description": "Persistent low energy not relieved by sleep." },
+  { "slug": "poor-sleep", "name": "Poor sleep / insomnia", "description": "Trouble falling or staying asleep." },
+  { "slug": "muscle-cramps", "name": "Muscle cramps", "description": "Painful involuntary muscle contractions, especially at night or post-exercise." },
+  { "slug": "brittle-nails", "name": "Brittle nails", "description": "Splitting, peeling, or slow-growing fingernails." },
+  { "slug": "hair-loss", "name": "Hair thinning or shedding", "description": "Diffuse hair loss not from a defined medical cause." },
+  { "slug": "low-mood", "name": "Low mood", "description": "Persistent mild depressive feelings without major depression diagnosis." },
+  { "slug": "anxiety", "name": "Anxiety", "description": "Elevated baseline worry or rumination." },
+  { "slug": "frequent-illness", "name": "Frequent colds / infections", "description": "More than 4 minor infections per year." },
+  { "slug": "slow-wound-healing", "name": "Slow wound healing", "description": "Cuts and scrapes that take longer than usual to close." },
+  { "slug": "cold-intolerance", "name": "Cold intolerance", "description": "Feeling cold easily, especially hands and feet." },
+  { "slug": "brain-fog", "name": "Brain fog", "description": "Difficulty concentrating, mental sluggishness." },
+  { "slug": "weak-bones", "name": "Bone density concerns", "description": "Osteopenia / osteoporosis risk or family history." }
+]
