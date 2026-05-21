@@ -119,3 +119,88 @@ export async function listNutrients(): Promise<NutrientListItem[]> {
   `);
   return result.rows as NutrientListItem[];
 }
+
+export type FoodListRow = {
+  slug: string;
+  name: string;
+  category: string;
+};
+
+export async function listFoods(): Promise<FoodListRow[]> {
+  const result = await db.execute(sql`
+    select slug, name, category::text as category
+    from foods
+    order by category, name
+  `);
+  return result.rows as FoodListRow[];
+}
+
+export type FoodRow = {
+  id: number;
+  slug: string;
+  name: string;
+  category: string;
+  fdc_id: number | null;
+  serving_size_g: string;
+  serving_description: string;
+  organic_available: boolean | null;
+  seasonality: string | null;
+  glycemic_index: number | null;
+  notes: string | null;
+};
+
+export async function getFood(slug: string): Promise<FoodRow | null> {
+  const result = await db.execute(sql`
+    select id, slug, name, category::text as category, fdc_id,
+           serving_size_g, serving_description, organic_available,
+           seasonality, glycemic_index, notes
+    from foods
+    where slug = ${slug}
+    limit 1
+  `);
+  return (result.rows[0] as FoodRow) ?? null;
+}
+
+export type FoodNutrientRow = {
+  nutrient_slug: string;
+  nutrient_name: string;
+  nutrient_category: string;
+  unit: string;
+  rda_male: string | null;
+  rda_female: string | null;
+  amount_per_100g: string;
+  amount_per_serving: string;
+  data_source: string;
+  citation_url: string | null;
+};
+
+export async function getFoodNutrientProfile(foodId: number): Promise<FoodNutrientRow[]> {
+  const result = await db.execute(sql`
+    with best as (
+      select distinct on (fn.food_id, fn.nutrient_id)
+        fn.nutrient_id,
+        fn.amount_per_100g,
+        fn.amount_per_serving,
+        fn.data_source,
+        fn.citation_url
+      from food_nutrients fn
+      where fn.food_id = ${foodId}
+      order by fn.food_id, fn.nutrient_id, ${PRECEDENCE_CASE}
+    )
+    select
+      n.slug as nutrient_slug,
+      n.name as nutrient_name,
+      n.category::text as nutrient_category,
+      n.unit,
+      n.rda_male,
+      n.rda_female,
+      b.amount_per_100g,
+      b.amount_per_serving,
+      b.data_source::text as data_source,
+      b.citation_url
+    from best b
+    join nutrients n on n.id = b.nutrient_id
+    order by n.category, n.name
+  `);
+  return result.rows as FoodNutrientRow[];
+}
