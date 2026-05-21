@@ -10,6 +10,7 @@ const STORAGE_KEY = 'wholefoodrx-plate';
 type Entry = { slug: string; servings: number };
 
 function readPlate(): Entry[] {
+  if (typeof window === 'undefined') return [];
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     return raw ? (JSON.parse(raw) as Entry[]) : [];
