@@ -23,7 +23,9 @@ export function FoodRankRow(p: Props) {
       <div className="flex items-baseline gap-3">
         <span className="w-6 text-right font-mono text-sm text-slate-400">{p.rank}.</span>
         <div>
-          <div className="font-medium">{p.food_name}</div>
+          <Link href={`/food/${p.food_slug}`} className="font-medium hover:underline">
+            {p.food_name}
+          </Link>
           <div className="text-xs text-slate-500">{p.serving_description}</div>
         </div>
       </div>
