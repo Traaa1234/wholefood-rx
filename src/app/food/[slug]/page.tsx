@@ -6,6 +6,7 @@ import { NutrientRadarChart, type ChartDatum } from '@/components/nutrient-radar
 import { NutrientBarChart } from '@/components/nutrient-bar-chart';
 import { NutrientProfileTable } from '@/components/nutrient-profile-table';
 import { SynergyCard } from '@/components/synergy-card';
+import { AddToPlateButton } from '@/components/add-to-plate-button';
 
 export const dynamic = 'force-dynamic';
 
@@ -44,6 +45,9 @@ export default async function FoodPage({ params }: { params: Promise<{ slug: str
         <span>Category: {food.category.replace(/_/g, ' ')}</span>
         <span>Serving: {food.serving_description} ({Number(food.serving_size_g)} g)</span>
         {food.glycemic_index !== null && <span>GI: {food.glycemic_index}</span>}
+      </div>
+      <div className="mt-4">
+        <AddToPlateButton slug={food.slug} name={food.name} />
       </div>
       {food.notes && <p className="mt-3 text-sm italic text-slate-500">{food.notes}</p>}
 

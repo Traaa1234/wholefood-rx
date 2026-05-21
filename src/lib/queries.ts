@@ -34,6 +34,8 @@ export type NutrientListItem = {
   name: string;
   category: string;
   unit: string;
+  rda_male: string | null;
+  rda_female: string | null;
 };
 
 // Lower number = higher precedence: prefer USDA Foundation over SR Legacy over curated.
@@ -110,10 +112,10 @@ export async function getNutrient(slug: string): Promise<NutrientRow | null> {
   return (result.rows[0] as NutrientRow | undefined) ?? null;
 }
 
-/** All nutrients (slug, name, category, unit) for the catalog page. */
+/** All nutrients (slug, name, category, unit, RDAs) for the catalog page. */
 export async function listNutrients(): Promise<NutrientListItem[]> {
   const result = await db.execute<NutrientListItem>(sql`
-    select slug, name, category::text as category, unit
+    select slug, name, category::text as category, unit, rda_male, rda_female
     from nutrients
     order by category, name
   `);

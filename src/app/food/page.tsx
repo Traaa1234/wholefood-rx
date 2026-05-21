@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { listFoods } from '@/lib/queries';
+import { AddToPlateButton } from '@/components/add-to-plate-button';
 
 export const dynamic = 'force-dynamic';
 
@@ -41,13 +42,11 @@ export default async function FoodIndex() {
           </h2>
           <ul className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
             {items.map((f) => (
-              <li key={f.slug}>
-                <Link
-                  href={`/food/${f.slug}`}
-                  className="block rounded-md border border-slate-200 px-4 py-2.5 text-sm hover:border-slate-400 hover:bg-slate-50"
-                >
+              <li key={f.slug} className="flex items-center justify-between gap-2 rounded-md border border-slate-200 px-4 py-2.5">
+                <Link href={`/food/${f.slug}`} className="text-sm hover:underline">
                   {f.name}
                 </Link>
+                <AddToPlateButton slug={f.slug} name={f.name} />
               </li>
             ))}
           </ul>
