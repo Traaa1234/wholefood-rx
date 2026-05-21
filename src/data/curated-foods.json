@@ -1,0 +1,14 @@
+[
+  { "slug": "ashwagandha-root", "name": "Ashwagandha root powder", "category": "herb_adaptogen", "serving_size_g": 5, "serving_description": "1 tsp", "notes": "Standardized to 2.5–5% withanolides for clinical effect." },
+  { "slug": "rhodiola-root", "name": "Rhodiola rosea root extract", "category": "herb_adaptogen", "serving_size_g": 0.5, "serving_description": "500 mg capsule", "notes": "Standardized to 3% rosavins, 1% salidroside." },
+  { "slug": "reishi-mushroom", "name": "Reishi (Ganoderma lucidum) dual extract", "category": "mushroom", "serving_size_g": 2, "serving_description": "1 tsp powder", "notes": "Hot water + alcohol extract for full spectrum." },
+  { "slug": "cordyceps-militaris", "name": "Cordyceps militaris extract", "category": "mushroom", "serving_size_g": 1, "serving_description": "1 g powder" },
+  { "slug": "holy-basil-leaf", "name": "Holy basil (Tulsi) leaf", "category": "herb_adaptogen", "serving_size_g": 2, "serving_description": "2 g dried leaf" },
+  { "slug": "schisandra-berry", "name": "Schisandra chinensis berry", "category": "herb_adaptogen", "serving_size_g": 3, "serving_description": "3 g dried berry" },
+  { "slug": "eleuthero-root", "name": "Eleuthero root", "category": "herb_adaptogen", "serving_size_g": 2, "serving_description": "2 g dried root" },
+  { "slug": "maca-root", "name": "Gelatinized maca root powder", "category": "herb_adaptogen", "serving_size_g": 5, "serving_description": "1 tsp" },
+  { "slug": "broccoli-sprouts", "name": "Broccoli sprouts (3-day)", "category": "vegetable", "serving_size_g": 30, "serving_description": "1 oz", "notes": "Sulforaphane content peaks at 3 days." },
+  { "slug": "turmeric-fresh", "name": "Fresh turmeric rhizome", "category": "herb_adaptogen", "serving_size_g": 5, "serving_description": "1 tsp grated" },
+  { "slug": "matcha-green-tea", "name": "Matcha green tea (ceremonial grade)", "category": "herb_adaptogen", "serving_size_g": 2, "serving_description": "1 tsp" },
+  { "slug": "wild-blueberries", "name": "Wild blueberries (Vaccinium angustifolium)", "category": "fruit", "serving_size_g": 100, "serving_description": "1 cup", "notes": "Higher anthocyanin density than cultivated blueberries." }
+]

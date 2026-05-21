@@ -1,0 +1,14 @@
+[
+  { "food_slug": "ashwagandha-root", "nutrient_slug": "ashwagandha", "amount_per_100g": 3000, "preparation_notes": "Root powder", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/31810321/" },
+  { "food_slug": "rhodiola-root", "nutrient_slug": "rhodiola", "amount_per_100g": 30000, "preparation_notes": "3% rosavins extract", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/22228617/" },
+  { "food_slug": "reishi-mushroom", "nutrient_slug": "reishi", "amount_per_100g": 25000, "preparation_notes": "Dual extract", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/29953363/" },
+  { "food_slug": "cordyceps-militaris", "nutrient_slug": "cordyceps", "amount_per_100g": 2000, "preparation_notes": "0.2% cordycepin minimum", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/31035818/" },
+  { "food_slug": "holy-basil-leaf", "nutrient_slug": "holy-basil", "amount_per_100g": 4000, "preparation_notes": "Dried leaf", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/28400848/" },
+  { "food_slug": "schisandra-berry", "nutrient_slug": "schisandra", "amount_per_100g": 5000, "preparation_notes": "Dried berry, ≥2% schisandrins", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/29325769/" },
+  { "food_slug": "eleuthero-root", "nutrient_slug": "eleuthero", "amount_per_100g": 8000, "preparation_notes": "Standardized 0.8% eleutherosides", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/22228617/" },
+  { "food_slug": "maca-root", "nutrient_slug": "maca", "amount_per_100g": 1500, "preparation_notes": "Gelatinized whole-root powder", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/27548190/" },
+  { "food_slug": "broccoli-sprouts", "nutrient_slug": "sulforaphane", "amount_per_100g": 100, "preparation_notes": "3-day sprouts, raw, with intact myrosinase", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/9294217/" },
+  { "food_slug": "turmeric-fresh", "nutrient_slug": "curcumin", "amount_per_100g": 3000, "preparation_notes": "Fresh rhizome, ~3% curcuminoids", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/28197897/" },
+  { "food_slug": "matcha-green-tea", "nutrient_slug": "egcg", "amount_per_100g": 6000, "preparation_notes": "Ceremonial grade, whole leaf", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/12695342/" },
+  { "food_slug": "wild-blueberries", "nutrient_slug": "anthocyanins", "amount_per_100g": 487, "preparation_notes": "Frozen wild lowbush", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/16190627/" }
+]
