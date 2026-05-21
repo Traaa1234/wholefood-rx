@@ -1,5 +1,7 @@
 # WholeFood RX
 
+**Live:** https://wholefood-rx.vercel.app
+
 Inverse-lookup nutrition tool. Pick a micronutrient — get the highest-density whole-food sources, ranked per 100 g and per realistic serving. Science-forward, USDA/NIH-cited, no supplement-industry hype.
 
 ## Stack
