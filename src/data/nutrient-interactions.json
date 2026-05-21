@@ -1,0 +1,16 @@
+[
+  { "a": "vitamin-c", "b": "iron", "kind": "synergy", "notes": "Vitamin C reduces non-heme iron to its more absorbable ferrous form, increasing absorption 2-3x.", "citation": "https://ods.od.nih.gov/factsheets/Iron-HealthProfessional/" },
+  { "a": "calcium", "b": "iron", "kind": "antagonist", "notes": "Calcium competes with iron for absorption when consumed together. Separate by 1-2 hours.", "citation": "https://ods.od.nih.gov/factsheets/Iron-HealthProfessional/" },
+  { "a": "calcium", "b": "vitamin-d", "kind": "synergy", "notes": "Vitamin D upregulates intestinal calcium absorption.", "citation": "https://ods.od.nih.gov/factsheets/VitaminD-HealthProfessional/" },
+  { "a": "calcium", "b": "vitamin-k", "kind": "synergy", "notes": "Vitamin K activates osteocalcin, directing calcium to bone instead of soft tissue.", "citation": "https://ods.od.nih.gov/factsheets/VitaminK-HealthProfessional/" },
+  { "a": "vitamin-d", "b": "magnesium", "kind": "cofactor", "notes": "Magnesium is required to activate vitamin D in the liver and kidney.", "citation": "https://pubmed.ncbi.nlm.nih.gov/29480918/" },
+  { "a": "vitamin-a", "b": "zinc", "kind": "cofactor", "notes": "Zinc is required for retinol-binding protein synthesis; deficiency mimics vitamin A deficiency.", "citation": "https://ods.od.nih.gov/factsheets/Zinc-HealthProfessional/" },
+  { "a": "zinc", "b": "copper", "kind": "antagonist", "notes": "Long-term high-dose zinc (>40 mg/day) depletes copper via metallothionein induction.", "citation": "https://ods.od.nih.gov/factsheets/Copper-HealthProfessional/" },
+  { "a": "zinc", "b": "vitamin-c", "kind": "synergy", "notes": "Both support immune function; co-supplementation common in cold studies.", "citation": "https://ods.od.nih.gov/factsheets/Zinc-HealthProfessional/" },
+  { "a": "iodine", "b": "selenium", "kind": "cofactor", "notes": "Selenium-dependent deiodinases convert T4 to active T3.", "citation": "https://ods.od.nih.gov/factsheets/Selenium-HealthProfessional/" },
+  { "a": "vitamin-b9", "b": "vitamin-b12", "kind": "cofactor", "notes": "B12 is required to recycle folate; B12 deficiency causes functional folate trap.", "citation": "https://ods.od.nih.gov/factsheets/Folate-HealthProfessional/" },
+  { "a": "vitamin-e", "b": "selenium", "kind": "synergy", "notes": "Both protect lipid membranes; selenium-dependent glutathione peroxidase regenerates vitamin E.", "citation": "https://pubmed.ncbi.nlm.nih.gov/3326350/" },
+  { "a": "vitamin-a", "b": "vitamin-d", "kind": "antagonist", "notes": "At very high doses, vitamin A blunts vitamin D's signaling on the VDR.", "citation": "https://pubmed.ncbi.nlm.nih.gov/10617969/" },
+  { "a": "vitamin-k", "b": "vitamin-d", "kind": "synergy", "notes": "Together direct calcium to bone and away from arteries.", "citation": "https://pubmed.ncbi.nlm.nih.gov/28428077/" },
+  { "a": "curcumin", "b": "vitamin-e", "kind": "synergy", "notes": "Both reduce oxidative damage; lipophilic so absorbed together with fat.", "citation": "https://pubmed.ncbi.nlm.nih.gov/19594223/" }
+]
