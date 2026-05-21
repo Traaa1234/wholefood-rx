@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getFood, getFoodNutrientProfile } from '@/lib/queries';
+import { getFood, getFoodNutrientProfile, getInteractionsAmongNutrientSlugs } from '@/lib/queries';
 import { pctRda } from '@/lib/rda';
 import { NutrientRadarChart, type ChartDatum } from '@/components/nutrient-radar-chart';
 import { NutrientBarChart } from '@/components/nutrient-bar-chart';
 import { NutrientProfileTable } from '@/components/nutrient-profile-table';
+import { SynergyCard } from '@/components/synergy-card';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,6 +22,7 @@ export default async function FoodPage({ params }: { params: Promise<{ slug: str
   if (!food) notFound();
 
   const profile = await getFoodNutrientProfile(food.id);
+  const interactions = await getInteractionsAmongNutrientSlugs(profile.map((r) => r.nutrient_slug));
 
   const toChart = (cats: string[]): ChartDatum[] =>
     profile
@@ -62,6 +64,8 @@ export default async function FoodPage({ params }: { params: Promise<{ slug: str
       ) : (
         <NutrientProfileTable rows={profile} />
       )}
+
+      <SynergyCard interactions={interactions} title="Nutrient pairings in this food" />
 
       <p className="mt-10 text-xs text-slate-400">
         Charts cap at 100% RDA for readability — the table shows exact amounts. Data: USDA FoodData Central and curated peer-reviewed literature. RDAs from NIH ODS.

@@ -1,10 +1,11 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import { getNutrient, rankFoodsByNutrient } from '@/lib/queries';
+import { getNutrient, rankFoodsByNutrient, getInteractionsForNutrient } from '@/lib/queries';
 import { FoodRankRow } from '@/components/food-rank-row';
 import { NutrientToggle } from '@/components/nutrient-toggle';
 import { CategoryFilter } from '@/components/category-filter';
+import { SynergyCard } from '@/components/synergy-card';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,6 +30,7 @@ export default async function NutrientPage({
   if (!nutrient) notFound();
 
   const rows = await rankFoodsByNutrient(slug, basis, categoryFilter, 25);
+  const interactions = await getInteractionsForNutrient(slug);
   const rda = nutrient.rda_male ?? nutrient.rda_female ?? null;
 
   return (
@@ -98,6 +100,8 @@ export default async function NutrientPage({
           />
         ))}
       </ol>
+
+      <SynergyCard interactions={interactions} />
 
       <p className="mt-10 text-xs text-slate-400">
         Data: USDA FoodData Central (foundation + SR legacy) and curated peer-reviewed literature.
