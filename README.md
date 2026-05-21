@@ -84,6 +84,12 @@ pnpm tsx scripts/build-food-ids.ts
 
 Every numeric value in the UI links to its source: a USDA FoodData Central food-detail page for USDA-sourced rows, or a PubMed / NIH ODS citation for curated adaptogen/phytonutrient rows. RDA values are from NIH Office of Dietary Supplements fact sheets (adults 19–50).
 
-## Status
+## Features
 
-MVP slice complete: Feature #1 (Nutrient → Food ranking). Features #2–5 (Food → Nutrient profile, Symptom chain, Plate builder, Synergy notes) and Vercel deployment are scoped in `docs/plans/` for the next phase.
+- **Nutrient → Food** (`/nutrient/[slug]`) — top food sources for any micronutrient, ranked, with %RDA and citations.
+- **Food → Nutrient** (`/food/[slug]`) — a food's full micronutrient profile as radar + bar charts and a table.
+- **Symptom finder** (`/symptoms`) — pick symptoms, get evidence-weighted nutrient suggestions and their top foods.
+- **Daily plate builder** (`/plate`) — add foods, see cumulative %RDA coverage and gaps. Stored in `localStorage`.
+- **Synergy notes** — absorption pairings (synergies, antagonists, cofactors) shown inline on nutrient and food pages.
+
+All micronutrient data is cited to USDA FoodData Central or peer-reviewed literature.
