@@ -36,16 +36,27 @@ export const USDA_NUMBER_TO_SLUG: Record<string, string> = {
   '629': 'omega-3-epa',
   '621': 'omega-3-dha',
 
-  // Selected essential amino acids
-  '501': 'histidine',
-  '502': 'isoleucine',
-  '503': 'leucine',
-  '504': 'lysine',
-  '505': 'methionine',
-  '506': 'phenylalanine',
-  '507': 'threonine',
-  '508': 'tryptophan',
-  '509': 'valine',
+  // Amino acids — nutrient numbers per USDA SR Legacy / FDC data dictionary.
+  // Essential:
+  '501': 'tryptophan',
+  '502': 'threonine',
+  '503': 'isoleucine',
+  '504': 'leucine',
+  '505': 'lysine',
+  '506': 'methionine',
+  '508': 'phenylalanine',
+  '510': 'valine',
+  '512': 'histidine',
+  // Conditionally essential (USDA 507 is "cystine" — the disulfide dimer of
+  // cysteine, the standard proxy for dietary cysteine in nutrient databases).
+  // Glutamine (Gln) is NOT in this map on purpose: USDA reports only 515
+  // "Glutamic acid", which via acid hydrolysis combines Glu + Gln (Glx) and
+  // cannot be split into Gln. Curate glutamine via curated-food-nutrients.json.
+  '507': 'cysteine',
+  '509': 'tyrosine',
+  '511': 'arginine',
+  '516': 'glycine',
+  '517': 'proline',
 };
 
 export function usdaNumberToSlug(num: string): string | null {

@@ -10,5 +10,16 @@
   { "food_slug": "broccoli-sprouts", "nutrient_slug": "sulforaphane", "amount_per_100g": 100, "preparation_notes": "3-day sprouts, raw, with intact myrosinase", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/9294217/" },
   { "food_slug": "turmeric-fresh", "nutrient_slug": "curcumin", "amount_per_100g": 3000, "preparation_notes": "Fresh rhizome, ~3% curcuminoids", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/28197897/" },
   { "food_slug": "matcha-green-tea", "nutrient_slug": "egcg", "amount_per_100g": 6000, "preparation_notes": "Ceremonial grade, whole leaf", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/12695342/" },
-  { "food_slug": "wild-blueberries", "nutrient_slug": "anthocyanins", "amount_per_100g": 487, "preparation_notes": "Frozen wild lowbush", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/16190627/" }
+  { "food_slug": "wild-blueberries", "nutrient_slug": "anthocyanins", "amount_per_100g": 487, "preparation_notes": "Frozen wild lowbush", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/16190627/" },
+
+  { "food_slug": "beef-ground-90-lean-meat-10-fat-raw", "nutrient_slug": "glutamine", "amount_per_100g": 3.07, "preparation_notes": "Protein-bound + free Gln; USDA does not report Gln separately (Glu+Gln combined as 515)", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/19623200/" },
+  { "food_slug": "chicken-breast-boneless-skinless-raw", "nutrient_slug": "glutamine", "amount_per_100g": 3.54, "preparation_notes": "Protein-bound + free Gln, raw", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/19623200/" },
+  { "food_slug": "fish-salmon-atlantic-wild-raw", "nutrient_slug": "glutamine", "amount_per_100g": 2.89, "preparation_notes": "Protein-bound + free Gln, raw", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/19623200/" },
+  { "food_slug": "egg-whole-raw-fresh", "nutrient_slug": "glutamine", "amount_per_100g": 1.72, "preparation_notes": "Protein-bound + free Gln, raw", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/19623200/" },
+  { "food_slug": "cottage-cheese-full-fat-large-or-small-curd", "nutrient_slug": "glutamine", "amount_per_100g": 2.72, "preparation_notes": "Protein-bound + free Gln", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/19623200/" },
+  { "food_slug": "yogurt-greek-plain-whole-milk", "nutrient_slug": "glutamine", "amount_per_100g": 1.65, "preparation_notes": "Protein-bound + free Gln", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/19623200/" },
+  { "food_slug": "cabbage-raw", "nutrient_slug": "glutamine", "amount_per_100g": 0.13, "preparation_notes": "Primarily free-pool Gln; traditional source for gut-barrier support", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/19623200/" },
+  { "food_slug": "spinach-raw", "nutrient_slug": "glutamine", "amount_per_100g": 0.28, "preparation_notes": "Free + protein-bound Gln, raw", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/19623200/" },
+  { "food_slug": "lentils-mature-seeds-cooked-boiled-with-salt", "nutrient_slug": "glutamine", "amount_per_100g": 1.42, "preparation_notes": "Cooked; dry lentil value is higher but typical serving is cooked", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/19623200/" },
+  { "food_slug": "peanut-butter-creamy", "nutrient_slug": "glutamine", "amount_per_100g": 5.11, "preparation_notes": "High on a per-100g basis due to low moisture; typical servings are ~32 g", "citation_url": "https://pubmed.ncbi.nlm.nih.gov/19623200/" }
 ]
